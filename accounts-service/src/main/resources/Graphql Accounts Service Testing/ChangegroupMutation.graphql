@@ -1,0 +1,16 @@
+"""
+A Change group.
+
+"""
+
+mutation {
+   changeGroup(id:"123", newGroup:"group1") {
+     id
+     email
+     username
+     firstName
+     lastName
+     group
+   }
+}
+

@@ -1,0 +1,68 @@
+# Add GraphQL schema definition here
+schema {
+	query: Accountsquery
+	mutation: AccountsMutation
+            
+}
+"""
+An existing account.
+"""
+type Account {
+	id: String!
+	username: String!
+	email: String
+	firstName: String!
+        lastName: String!
+       group: String!
+}
+
+"""
+A new account to add.
+"""
+input NewAccount {
+	id: String!
+	username: String!
+	email: String
+	firstName: String!
+        lastName: String!
+       group: String!
+
+
+}
+type Accountsquery {
+
+	"""
+	The entire account.
+	"""
+	accounts: [Account]
+
+
+	"""
+	The account matching the given ID.
+	"""
+	account(id: String!): Account
+}
+
+        """
+        Operations for updating the account.
+        """
+        type AccountsMutation {
+	"""
+	Delete account 
+	"""
+	deletaccount(id: String!): Account
+
+	
+        """
+        creates account
+        """
+        createaccount(newaccount:NewAccount!):Account
+
+   
+        """
+        Change group    
+        """
+        changeGroup(id: String!, newGroup: String!): Account
+          
+}
+

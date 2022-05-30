@@ -1,0 +1,23 @@
+
+"""
+A new account that works
+"""
+mutation {
+    createaccount(
+        newaccount: {
+            id: "123"
+            email: "email"
+            username:"username"
+            firstName: "firstName"
+            lastName: "lastName"
+            group: "group"
+        }
+    ) {
+        id
+        email
+        username
+        firstName
+        lastName
+        group
+    }
+}

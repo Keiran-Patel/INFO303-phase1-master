@@ -1,0 +1,14 @@
+"""
+A get account that works by getting all the ids
+"""
+
+query {
+   accounts {
+     id
+     email
+     username
+     firstName
+     lastName
+     group
+   }
+}

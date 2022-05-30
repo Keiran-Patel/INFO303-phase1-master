@@ -1,0 +1,193 @@
+openapi: 3.0.1
+info:
+  title: Sales Service API
+  version: 1.0.0
+  description: A service API for managing customer sales.
+  x-logo:
+    url: ''
+servers:
+  - url: http://localhost:8081/api
+paths:
+  '/sales':
+    get:
+      tags:
+        - Sales
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sale'
+          description: A client needs to be able to get all of the sales.
+      operationId: get all sales
+      summary: Get all of the sales.
+      description: Returns an array contains all of the items in  the sales list.
+    post:
+      requestBody:
+        description: Add a new sale to the system.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sale'
+        required: true
+      tags:
+        - Sales
+      responses:
+        '201':
+          description: Created
+      operationId: add new sale
+      summary: Add a new sale to the system.
+  '/sales/{id}':
+    delete:
+      tags:
+        - Sales
+      responses:
+        '204':
+          description: Item successfully deleted
+      operationId: Delete sale.
+      summary:   Delete the sale matching the ID.
+    parameters:
+      - deprecated: false
+        name: id
+        description: The item's name.
+        schema:
+          type: string
+        in: path
+        required: true
+        x-last-modified: 1646611214886
+    get:
+      tags:
+        - Sales
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
+          description: >-
+            get specific sale via saleID
+      operationId: get specificID sale
+      summary: get specific sale via saleID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+            $ref: ''   
+  '/sales/customer/{id}':
+    get:
+      tags:
+        - Sales for Customer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sale'
+          description: >-
+            get specific sale via customer ID
+      operationId: get specific customerID sale
+      summary: get specific sale via customerID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+            $ref: ''   
+  '/sales/customer/{id}/summary':
+    get:
+      tags:
+        - Sales for Customer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Summary'
+          description: >-
+            Get a summary of sales for the customer matching the given ID.
+      operationId: get customer summary
+      summary: Get a summary of sales for the customer matching the given ID.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+            $ref: ''   
+  
+components:
+  schemas:
+    Sale:
+      type: object
+      properties:
+        id:
+          description: The sale's unique ID.
+          type: string
+        saleDate:
+          description: data of the sale
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SaleItem'
+        totals:
+            $ref: '#/components/schemas/Totals'
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        customerCode:
+          type: string
+        email:
+          type: string
+        group:
+          type: string
+    SaleItem:
+        type: object
+        properties:
+          productId:
+            type: string
+          quantity:
+            type: number
+            format: float
+          price:
+            type: number
+            format: double
+    Totals:
+        type: object
+        properties:
+          totalPrice:
+            type: number
+            format: double
+          totalTax:
+            type: number
+            format: double
+          totalPayment:
+            type: number
+            format: double
+    Summary:
+        type: object
+        properties:
+          numberOfSales:
+            type: integer
+          totalPayment:
+            type: number
+          group:
+            type: string
+  securitySchemes: {}
+  headers: {}
+  responses: {}
+  parameters: {}
+tags:
+  - name: Sales
+  - name: Sales for Customer
+security: []

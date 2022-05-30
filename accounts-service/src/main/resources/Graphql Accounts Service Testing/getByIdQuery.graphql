@@ -1,0 +1,17 @@
+"""
+A getbyid account that works
+"""
+
+ query{ account(
+            id: "123"
+    ) {
+        id
+        email
+        username
+        firstName
+        lastName
+        group
+        
+    }
+    }
+
